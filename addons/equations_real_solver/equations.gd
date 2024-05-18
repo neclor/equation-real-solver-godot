@@ -131,7 +131,7 @@ func quartic_solve_real(a: float, b: float, c: float, d: float, e: float) -> Arr
 		var y: float = cubic_solve_real(1 ,cubic_b, cubic_c, cubic_d)[0]
 		var sqrt_p_add_2y: float = sqrt(p + 2 * y)
 		var p_add_y: float = p + y
-		var q_div_2_mul_sqrt_p_add_2y: float = q / 2 / sqrt_p_add_2y
+		var q_div_2_mul_sqrt_p_add_2y: float = q / (2 * sqrt_p_add_2y)
 
 		real_roots.append_array(quadratic_solve_real(1, -sqrt_p_add_2y, p_add_y + q_div_2_mul_sqrt_p_add_2y))
 		var new_real_roots: Array[float] = quadratic_solve_real(1, sqrt_p_add_2y, p_add_y - q_div_2_mul_sqrt_p_add_2y)
