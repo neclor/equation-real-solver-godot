@@ -2,7 +2,7 @@
 Functions on GDScript for finding real roots of equations of 1-4 degrees.
 
 ## Usage
-Functions take a value of type float and return an array of roots.
+Functions take a value of type float and return an array of real roots.
 If there are no roots, return an empty array.
 
 ```gdscript
