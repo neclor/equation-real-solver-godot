@@ -18,18 +18,17 @@ func init_random() -> void:
 
 func _ready() -> void:
 	init_random()
-
-	#fast_test()
-
 	start_tests()
 
+	#one_test()
 
-func fast_test():
-	var a: float = 921.344146391763
-	var b: float = 736989.377023416
-	var c: float = 921.344146391763
-	var d: float = 736989.377023416
-	var e: float = -0
+
+func one_test():
+	var a: float = 1
+	var b: float = -10
+	var c: float = 35
+	var d: float = -50
+	var e: float = 24
 	prints(a, b, c, d, e, Equation.quartic_solve_real(a, b, c, d, e))
 
 
