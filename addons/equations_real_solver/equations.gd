@@ -7,6 +7,8 @@ func linear_solve_real(a: float, b: float) -> Array[float]: # a * x + b = 0
 
 	return [-b / a] # Linear equation. # https://en.wikipedia.org/wiki/Linear_equation
 
+func is_zero_approx_001(a: float) -> float:
+	return absf(a) < 0.001
 
 func quadratic_solve_real(a: float, b: float, c: float) -> Array[float]: # a * x^2 + b * x + c = 0
 	if is_zero_approx(a): # Exception, because if a = 0 then this is not a quadratic equation.
@@ -15,7 +17,7 @@ func quadratic_solve_real(a: float, b: float, c: float) -> Array[float]: # a * x
 	var real_roots: Array[float] = []
 
 	var D: float = b ** 2 - 4 * a * c # Solution using discriminant. # https://en.wikipedia.org/wiki/Quadratic_equation
-	if is_zero_approx(D):
+	if is_zero_approx_001(D):
 		real_roots.append(-b / 2 * a)
 
 	elif D > 0:
