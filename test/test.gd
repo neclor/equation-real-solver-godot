@@ -19,7 +19,7 @@ func init_random() -> void:
 func _ready() -> void:
 	init_random()
 
-	fast_test()
+	#fast_test()
 
 	start_tests()
 
@@ -106,10 +106,11 @@ func tests_linear(a: float, b: float) -> bool:
 
 	var test_roots: Array[float] = Equation.linear_solve_real(linear_a, linear_b)
 
-	if check_roots_equal(test_roots, roots):
+	var error_percentage: float = check_roots_equal(roots, test_roots)
+	if error_percentage == 0:
 		return true
 
-	prints("	LINEAR TEST FAILED", linear_a, linear_b, roots, test_roots)
+	prints("	LINEAR TEST FAILED error:", error_percentage, linear_a, linear_b, roots, test_roots)
 	return false
 	#endregion
 
@@ -135,11 +136,12 @@ func tests_quadratic(a: float, b: float, c: float) -> bool:
 func test_quadratic(roots: Array[float], a: float, b: float, c: float) -> bool:
 	var test_roots: Array[float] = Equation.quadratic_solve_real(a, b, c)
 
-	if check_roots_equal(test_roots, roots):
+	var error_percentage: float = check_roots_equal(roots, test_roots)
+	if error_percentage == 0:
 		return true
 
 	roots.sort()
-	prints("	QUADRATIC TEST FAILED", a, b, c, roots, test_roots)
+	prints("	QUADRATIC TEST FAILED error:", error_percentage, a, b, c, roots, test_roots)
 	return false
 	#endregion
 
@@ -168,11 +170,12 @@ func tests_cubic(a: float, b: float, c: float, d: float) -> bool:
 func test_cubic(roots: Array[float], a: float, b: float, c: float, d: float) -> bool:
 	var test_roots: Array[float] = Equation.cubic_solve_real(a, b, c, d)
 
-	if check_roots_equal(roots, test_roots):
+	var error_percentage: float = check_roots_equal(roots, test_roots)
+	if error_percentage == 0:
 		return true
 
 	roots.sort()
-	prints("	CUBIC TEST FAILED", a, b, c, d, roots, test_roots)
+	prints("	CUBIC TEST FAILED error:", error_percentage, a, b, c, d, roots, test_roots)
 	return false
 	#endregion
 
@@ -207,40 +210,37 @@ func tests_quartic(a: float, b: float, c: float, d: float, e: float) -> bool:
 
 
 func test_quartic(roots: Array[float], a: float, b: float, c: float, d: float, e: float) -> bool:
-
-	if is_equal_approx(a , -784.63224109702):
-		prints(a, b, c, d, e)
-		prints(-784.632241097025, -884.891320349566, 282107501.687061, 0, 0)
-		print(Equation.quartic_solve_real(a, b, c, d, e))
-		print(Equation.quartic_solve_real(-784.63224109702, -884.891320349566, 282107501.687061, 0, 0))
-
 	var test_roots: Array[float] = Equation.quartic_solve_real(a, b, c, d, e)
 
-	if check_roots_equal(roots, test_roots):
+	var error_percentage: float = check_roots_equal(roots, test_roots)
+	if error_percentage == 0:
 		return true
 
 	roots.sort()
-	prints("	QUARTIC TEST FAILED", a, b, c, d, e, roots, test_roots)
+	prints("	QUARTIC TEST FAILED error:", error_percentage, a, b, c, d, e, roots, test_roots)
 	return false
 	#endregion
 
 
-func check_roots_equal(roots_0: Array, roots_1: Array) -> bool:
-	if roots_0.size() != roots_1.size():
-		return false
+func check_roots_equal(roots: Array, test_roots: Array) -> float:
+	var max_error_percentage: float = 0
 
-	elif roots_0.size() == 0 and roots_1.size() == 0:
-		return true
+	if roots.size() != test_roots.size():
+		return -1
+
+	elif roots.size() == 0 and test_roots.size() == 0:
+		return 0
 
 	else:
-		var roots_0_d: Array[float] = roots_0.duplicate()
-		var roots_1_d: Array[float] = roots_1.duplicate()
+		var roots_d: Array[float] = roots.duplicate()
+		var test_roots_d: Array[float] = test_roots.duplicate()
 
-		roots_0_d.sort()
-		roots_1_d.sort()
+		roots_d.sort()
+		test_roots.sort()
 
-		for i in roots_0_d.size():
-			if not is_equal_approx(roots_0_d[i], roots_1_d[i]):
-				return false
-		return true
+		for i in roots_d.size():
+			if not is_equal_approx(roots_d[i], test_roots_d[i]):
+				var error_percentage: float = absf(roots_d[i] - test_roots_d[i]) / absf(roots_d[i])
+				max_error_percentage = error_percentage if error_percentage > max_error_percentage else max_error_percentage
+		return max_error_percentage
 #endregion

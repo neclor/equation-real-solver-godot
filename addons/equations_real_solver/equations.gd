@@ -59,11 +59,6 @@ func cubic_solve_real(a: float, b: float, c: float, d: float) -> Array[float]: #
 	var S_div_k_pow_3: float = Q_pow_3_div_k_pow_3 - R_pow_2_div_k_pow_3
 	var S: float = S_div_k_pow_3 * (k ** 3)
 
-	#prints(Q**3 - R**2, Q**3, R**2)
-	#prints(S, Q_pow_3_div_k_pow_3, R_pow_2_div_k_pow_3, is_equal_approx(Q_pow_3_div_k_pow_3, R_pow_2_div_k_pow_3))
-
-	#if is_zero_approx(S):
-
 	if is_equal_approx(Q_pow_3_div_k_pow_3, R_pow_2_div_k_pow_3):
 		if is_zero_approx(R):
 			real_roots.append(-p_div_3)
@@ -115,11 +110,9 @@ func quartic_solve_real(a: float, b: float, c: float, d: float, e: float) -> Arr
 
 	var a1_pow_2: float = a1 * a1
 
-	var p: float = -3.0 / 8 * a1_pow_2  # Converting to a depressed quartic. x = u - b / (4 * a) => u^4 + p * u^2 + q * u + r = 0
+	var p: float = -3.0 / 8 * a1_pow_2 + b1 # Converting to a depressed quartic. x = u - b / (4 * a) => u^4 + p * u^2 + q * u + r = 0
 	var q: float = a1 ** 3 / 8 - a1 * b1 / 2 + c1 # Using Ferrari's solution.
 	var r: float = -3.0 / 256 * a1_pow_2 ** 2 + a1_pow_2 * b1 / 16 - a1 * c1 / 4 + d1 # https://en.wikipedia.org/wiki/Quartic_equation
-
-	print(q)
 
 	if is_zero_approx(q):
 		for u_pow_2 in quadratic_solve_real(1, p, r):
@@ -143,16 +136,6 @@ func quartic_solve_real(a: float, b: float, c: float, d: float, e: float) -> Arr
 
 		real_roots.append_array(quadratic_solve_real(1, -sqrt_p_add_2y, p_add_y + q_div_2_mul_sqrt_p_add_2y))
 		var new_real_roots: Array[float] = quadratic_solve_real(1, sqrt_p_add_2y, p_add_y - q_div_2_mul_sqrt_p_add_2y)
-
-
-		print(-a1 / 4)
-		prints(1, sqrt_p_add_2y, p_add_y - q_div_2_mul_sqrt_p_add_2y)
-		prints(real_roots, new_real_roots)
-
-		#if is_equal_approx(-784.632241097025, a):
-			#prints(p, q)
-			#prints(p + 2 * y, p + y, q_div_2_mul_sqrt_p_add_2y)
-			#prints(1, -sqrt_p_add_2y, p_add_y + q_div_2_mul_sqrt_p_add_2y, real_roots)
 
 		if real_roots.size() == 0:
 			real_roots.append_array(new_real_roots)
