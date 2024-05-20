@@ -31,6 +31,12 @@ func one_test():
 	var e: float = 24
 	prints(a, b, c, d, e, Equation.quartic_solve_real(a, b, c, d, e))
 
+	a = 2
+	b = -11
+	c = 12
+	d = 9
+	prints(a, b, c, d, Equation.cubic_solve_real(a, b, c, d))
+
 
 func generate_coefficients() -> Array[float]:
 	var a: float
