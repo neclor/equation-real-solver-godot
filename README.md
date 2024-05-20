@@ -9,7 +9,7 @@ If there are no roots, return an empty array.
 
 # Example
 func _ready():
-	var roots: Array[float] = quartic_solve_real(1, -10, 35, -50, 24))
+	var roots: Array[float] = quartic_solve_real(1, -10, 35, -50, 24)
 	print(roots) # Prints "[1, 2, 3, 4]"
 
 # Functions
