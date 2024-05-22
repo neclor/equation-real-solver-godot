@@ -1,5 +1,5 @@
-# Equations Real Solver
-Functions on GDScript for finding real roots of equations of 1-4 degrees.
+# Equation Real Solver
+Functions on GDScript for finding real roots of polynomial equations of degree up to 4 (quartic).
 
 ## Usage
 Functions take a value of type float and return a sorted array of real roots.
