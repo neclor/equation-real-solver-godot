@@ -16,8 +16,8 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-Equation="*res://addons/equations_real_solver/equations.gd"
+Equation="*res://addons/equation_real_solver/equation_real_solver.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/equations_real_solver/plugin.cfg")
+enabled=PackedStringArray("res://addons/equation_real_solver/plugin.cfg")
